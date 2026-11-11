@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard POS Cafe Santuy</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+:root {
+    --utama: #5054c8;
+    --utama-gelap: #3e43a9;
+    --latar: #f3f4fa;
+    --teks: #272938;
+    --abu: #85899b;
+    --garis: #e7e8ef;
+    --hijau: #218653;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--latar);
+    color: var(--teks);
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--utama);
+    color: white;
+    padding: 22px 14px;
+    min-height: 100vh;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 8px 12px 35px;
+}
+
+.logo i {
+    font-size: 29px;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.nav-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 12px;
+    border-radius: 9px;
+    text-decoration: none;
+    color: #f5f5ff;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.nav-menu a i {
+    font-size: 18px;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    background: rgba(255,255,255,.19);
+    color: #fff;
+}
+
+.nav-menu .logout {
+    margin-top: 15px;
+    border-top: 1px solid rgba(255,255,255,.15);
+}
+
+/* KONTEN */
+.content {
+    flex: 1;
+    min-width: 0;
+    padding: 35px 40px;
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #d9dbe5;
+    margin-bottom: 22px;
+}
+
+.avatar {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e3e5ff;
+    border: 3px solid #b9bdff;
+    color: var(--utama);
+    font-size: 30px;
+    overflow: hidden;
+}
+
+.welcome h1 {
+    font-size: 29px;
+    font-weight: 500;
+    margin: 0 0 3px;
+}
+
+.welcome p {
+    font-size: 13px;
+    color: var(--abu);
+    margin: 0;
+}
+
+/* KARTU STATISTIK */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    margin-bottom: 35px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 22px;
+    padding: 20px 22px;
+    min-height: 125px;
+    box-shadow: 0 9px 22px rgba(36,39,78,.09);
+}
+
+.stat-title {
+    font-size: 17px;
+    color: #4d5060;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 29px;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+.stat-icon {
+    float: right;
+    font-size: 25px;
+    color: var(--utama);
+}
+
+/* INFORMASI */
+.panel {
+    background: white;
+    border: 1px solid #dedfe8;
+    border-radius: 6px;
+    padding: 17px;
+}
+
+.panel h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 17px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid var(--garis);
+}
+
+.panel > p {
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.info-table th,
+.info-table td {
+    border: 1px solid #e1e2e8;
+    padding: 11px 9px;
+    text-align: left;
+}
+
+.info-table th {
+    width: 190px;
+    font-weight: 600;
+}
+
+.badge {
+    display: inline-block;
+    background: var(--hijau);
+    color: white;
+    padding: 4px 9px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.quick-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 22px;
+}
+
+.quick-links a {
+    text-decoration: none;
+    color: var(--teks);
+    background: white;
+    border: 1px solid var(--garis);
+    border-radius: 12px;
+    padding: 17px;
+    transition: .2s;
+}
+
+.quick-links a:hover {
+    border-color: var(--utama);
+    transform: translateY(-2px);
+}
+
+.quick-links i {
+    display: block;
+    color: var(--utama);
+    font-size: 25px;
+    margin-bottom: 9px;
+}
+
+.quick-links strong {
+    display: block;
+    font-size: 13px;
+}
+
+.quick-links small {
+    color: var(--abu);
+    font-size: 11px;
+}
+
+.footer {
+    text-align: center;
+    color: var(--abu);
+    font-size: 11px;
+    padding: 25px 0 5px;
+}
+
+/* RESPONSIF */
+@media (max-width: 1050px) {
+    .content {
+        padding: 25px;
+    }
+
+    .stats {
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 17px;
+    }
+}
+
+@media (max-width: 800px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        padding: 14px;
+    }
+
+    .logo {
+        padding: 5px 8px 16px;
+        font-size: 22px;
+    }
+
+    .nav-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .nav-menu a {
+        padding: 9px;
+        font-size: 12px;
+    }
+
+    .nav-menu a i {
+        font-size: 15px;
+    }
+
+    .nav-menu .logout {
+        margin-top: 0;
+        border-top: 0;
+    }
+
+    .content {
+        padding: 20px 15px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-links {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome h1 {
+        font-size: 22px;
+    }
+
+    .avatar {
+        width: 58px;
+        height: 58px;
+    }
+
+    .panel {
+        overflow-x: auto;
+    }
+
+    .info-table {
+        min-width: 480px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="bi bi-cup-hot-fill"></i>
+            <span>POS CAFE</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="index.html" class="active">
+                <i class="bi bi-house-door"></i>
+                Dashboard
+            </a>
+
+            <a href="menu.php">
+                <i class="bi bi-cup-hot"></i>
+                Kelola Menu
+            </a>
+
+            <a href="kasir.php">
+                <i class="bi bi-cart3"></i>
+                Kasir
+            </a>
+
+            <a href="transaksi.php">
+                <i class="bi bi-receipt"></i>
+                Transaksi
+            </a>
+
+            <a href="laporan.php">
+                <i class="bi bi-graph-up-arrow"></i>
+                Laporan
+            </a>
+
+            <a href="logout.php" class="logout"
+               onclick="return confirm('Yakin ingin logout?')">
+                <i class="bi bi-box-arrow-right"></i>
+                Logout
+            </a>
+        </nav>
+    </aside>
+
+    <!-- KONTEN DASHBOARD -->
+    <main class="content">
+
+        <section class="welcome">
+            <div class="avatar">
+                <i class="bi bi-person-circle"></i>
+            </div>
+
+            <div>
+                <h1>Selamat Datang, <span id="nama">Admin</span> 👋</h1>
+                <p id="email">Administrator POS Cafe Santuy</p>
+            </div>
+        </section>
+
+        <!-- STATISTIK -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <i class="bi bi-cup-hot stat-icon"></i>
+                <div class="stat-title">Total Menu</div>
+                <div class="stat-value" id="totalMenu">10</div>
+            </div>
+
+            <div class="stat-card">
+                <i class="bi bi-receipt stat-icon"></i>
+                <div class="stat-title">Total Transaksi</div>
+                <div class="stat-value" id="totalTransaksi">0</div>
+            </div>
+
+            <div class="stat-card">
+                <i class="bi bi-cash-stack stat-icon"></i>
+                <div class="stat-title">Pendapatan</div>
+                <div class="stat-value" id="pendapatan">Rp 0</div>
+            </div>
+
+        </section>
+
+        <!-- INFORMASI PENGGUNA -->
+        <section class="panel">
+            <h2>Informasi</h2>
+
+            <p>
+                Selamat datang di Sistem POS Cafe Santuy.
+                Silakan gunakan menu di sebelah kiri untuk
+                mengelola data menu, transaksi, dan laporan.
+            </p>
+
+            <table class="info-table">
+                <tbody>
+                    <tr>
+                        <th>Nama</th>
+                        <td id="infoNama">Administrator</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td id="infoEmail">Belum terhubung</td>
+                    </tr>
+                    <tr>
+                        <th>Login Sebagai</th>
+                        <td id="infoRole">Administrator</td>
+                    </tr>
+                    <tr>
+                        <th>Status Login</th>
+                        <td>
+                            <span class="badge">Dashboard POS Cafe</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- AKSES CEPAT -->
+        <section class="quick-links">
+
+            <a href="menu.php">
+                <i class="bi bi-cup-hot"></i>
+                <strong>Kelola Menu</strong>
+                <small>Tambah dan ubah menu cafe</small>
+            </a>
+
+            <a href="kasir.php">
+                <i class="bi bi-cart-check"></i>
+                <strong>Mulai Transaksi</strong>
+                <small>Catat pesanan pelanggan</small>
+            </a>
+
+            <a href="laporan.php">
+                <i class="bi bi-bar-chart-line"></i>
+                <strong>Lihat Laporan</strong>
+                <small>Pantau pendapatan cafe</small>
+            </a>
+
+        </section>
+
+        <div class="footer">
+            © <span id="tahun"></span> POS Cafe Santuy
+        </div>
+
+    </main>
+</div>
+
+<script>
+// Format mata uang Rupiah
+const rupiah = angka =>
+    'Rp ' + Number(angka || 0).toLocaleString('id-ID');
+
+// Informasi pengguna contoh.
+// Untuk data login asli, gunakan PHP dan session.
+document.getElementById('tahun').textContent =
+    new Date().getFullYear();
+
+// Contoh data dashboard.
+// Angka ini masih statis sampai dihubungkan dengan database MySQL.
+document.getElementById('totalMenu').textContent = '9';
+document.getElementById('totalTransaksi').textContent = '0';
+document.getElementById('pendapatan').textContent = rupiah(0);
+</script>
+
+</body>
+</html>
